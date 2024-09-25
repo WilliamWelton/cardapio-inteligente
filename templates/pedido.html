@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açai da Nena - Pedido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #800080;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #4b0082;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+        .image-option {
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .image-option img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+        }
+        .image-option img:hover {
+            transform: scale(1.1);
+        }
+        .image-option.selected img {
+            border: 3px solid #fff;
+            transform: scale(1.2);
+        }
+        button {
+            padding: 15px;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e6b800;
+        }
+        /* Estilo para a logomarca */
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 150px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logomarca clicável -->
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Açai da Nena">
+            </a>
+        </div>
+
+        <h1>Faça Seu Pedido</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tamanho:</label>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="300ml" name="tamanho" value="300ml" required>
+                    <label for="300ml">
+                        <img src="{{ url_for('static', filename='300ml.jpg') }}" alt="300ml">
+                    </label>
+                </div>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="500ml" name="tamanho" value="500ml">
+                    <label for="500ml">
+                        <img src="{{ url_for('static', filename='500ml.jpg') }}" alt="500ml">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Fruta:</label>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="morango" name="fruta" value="morango" required>
+                    <label for="morango">
+                        <img src="{{ url_for('static', filename='morango.jpg') }}" alt="Morango">
+                    </label>
+                </div>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="kiwi" name="fruta" value="kiwi">
+                    <label for="kiwi">
+                        <img src="{{ url_for('static', filename='kiwi.jpg') }}" alt="Kiwi">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Adicionais:</label>
+                <div class="image-option" onclick="toggleCheckbox(this)">
+                    <input type="checkbox" id="leite" name="adicionais" value="leite_em_po">
+                    <label for="leite">
+                        <img src="{{ url_for('static', filename='leite_em_po.jpg') }}" alt="Leite em pó">
+                    </label>
+                </div>
+                <div class="image-option" onclick="toggleCheckbox(this)">
+                    <input type="checkbox" id="mms" name="adicionais" value="mms">
+                    <label for="mms">
+                        <img src="{{ url_for('static', filename='mms.jpg') }}" alt="MMS">
+                    </label>
+                </div>
+                <div class="image-option" onclick="toggleCheckbox(this)">
+                    <input type="checkbox" id="pacoca" name="adicionais" value="pacoca">
+                    <label for="pacoca">
+                        <img src="{{ url_for('static', filename='pacoca.jpg') }}" alt="Pó de paçoca">
+                    </label>
+                </div>
+                <div class="image-option" onclick="toggleCheckbox(this)">
+                    <input type="checkbox" id="jujubas" name="adicionais" value="jujubas">
+                    <label for="jujubas">
+                        <img src="{{ url_for('static', filename='jujubas.jpg') }}" alt="Jujubas">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Calda:</label>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="calda_morango" name="calda" value="morango" required>
+                    <label for="calda_morango">
+                        <img src="{{ url_for('static', filename='calda_morango.jpg') }}" alt="Calda de Morango">
+                    </label>
+                </div>
+                <div class="image-option" onclick="selectOption(this)">
+                    <input type="radio" id="calda_leite_condensado" name="calda" value="leite_condensado">
+                    <label for="calda_leite_condensado">
+                        <img src="{{ url_for('static', filename='calda_leite_condensado.jpg') }}" alt="Calda de Leite Condensado">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Forma de Pagamento:</label>
+                <input type="radio" id="pix" name="pagamento" value="pix" required>
+                <label for="pix">Pix</label>
+                <input type="radio" id="dinheiro" name="pagamento" value="dinheiro">
+                <label for="dinheiro">Dinheiro</label>
+            </div>
+
+            <button type="submit">Confirmar Pedido</button>
+        </form>
+    </div>
+
+    <script>
+        function selectOption(element) {
+            var options = element.parentNode.querySelectorAll('.image-option');
+            options.forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function toggleCheckbox(element) {
+            var checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('selected', checkbox.checked);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Açai da Nena - Recebimento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Pedido</h1>
+        <div class="order-details">
+            <p><strong>Nome:</strong> {{ nome }}</p>
+            <div class="item">
+                <p><strong>Tamanho:</strong></p>
+                <img src="{{ url_for('static', filename=nome_tamanho) }}" alt="Tamanho">
+            </div>
+            <div class="item">
+                <p><strong>Fruta:</strong></p>
+                <img src="{{ url_for('static', filename=nome_fruta) }}" alt="Fruta">
+            </div>
+            <div class="item">
+                <p><strong>Adicionais:</strong></p>
+                <div class="adicionais-container">
+                    {% for adicional in adicionais %}
+                        <img src="{{ url_for('static', filename=adicional) }}" alt="Adicional">
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="item">
+                <p><strong>Calda:</strong></p>
+                <img src="{{ url_for('static', filename=nome_calda) }}" alt="Calda">
+            </div>
+            <div class="item">
+                <p><strong>Pagamento:</strong> {{ pagamento }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
